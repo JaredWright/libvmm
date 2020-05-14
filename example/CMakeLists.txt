@@ -1,0 +1,12 @@
+add_subdirectory(bare_minimum)
+add_subdirectory(hello_world)
+
+if(${LIBVMM_TARGET_ARCH} STREQUAL "x86_64")
+    add_subdirectory(intel/cpuid)
+    add_subdirectory(intel/control_register)
+    add_subdirectory(intel/io_port)
+    add_subdirectory(intel/msr)
+    add_subdirectory(intel/vmcall)
+    add_subdirectory(intel/vmcs)
+    add_subdirectory(intel/vmexit)
+endif()
