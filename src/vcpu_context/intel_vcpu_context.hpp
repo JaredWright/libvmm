@@ -2,6 +2,7 @@
 #define LIBVMM_VCPU_CONTEXT_INTEL_VCPU_CONTEXT_HPP
 
 #include <libvmm/type/vcpu_context.hpp>
+#include <state_save/vmexit_state_save.hpp>
 #include <state_save/x64_gr_state_save.hpp>
 
 namespace libvmm
@@ -9,13 +10,46 @@ namespace libvmm
 
 class intel_vcpu_context :
     public vcpu_context,
+    public vmexit_state_save,
     public x64_gr_state_save
 {
 public:
 
-    intel_vcpu_context(x64_gr_state_save &grss) noexcept :
+    intel_vcpu_context(vmexit_state_save &vme_ss, x64_gr_state_save &grss) noexcept :
+        m_vmexit_state_save{vme_ss},
         m_x64_gr_state_save{grss}
     {}
+
+    // ---------------------- vmexit_state_save seam ---------------------------
+    enum vmexit_id get_vmexit_id() noexcept
+    { return m_vmexit_state_save.get_vmexit_id(); }
+
+    void set_vmexit_id(enum vmexit_id value) noexcept
+    { return m_vmexit_state_save.set_vmexit_id(value); }
+
+    uint64_t get_vmexit_r0() noexcept
+    { return m_vmexit_state_save.get_vmexit_r0(); }
+
+    void set_vmexit_r0(uint64_t value) noexcept
+    { return m_vmexit_state_save.set_vmexit_r0(value); }
+
+    uint64_t get_vmexit_r1() noexcept
+    { return m_vmexit_state_save.get_vmexit_r1(); }
+
+    void set_vmexit_r1(uint64_t value) noexcept
+    { return m_vmexit_state_save.set_vmexit_r1(value); }
+
+    uint64_t get_vmexit_r2() noexcept
+    { return m_vmexit_state_save.get_vmexit_r2(); }
+
+    void set_vmexit_r2(uint64_t value) noexcept
+    { return m_vmexit_state_save.set_vmexit_r2(value); }
+
+    uint64_t get_vmexit_r3() noexcept
+    { return m_vmexit_state_save.get_vmexit_r3(); }
+
+    void set_vmexit_r3(uint64_t value) noexcept
+    { return m_vmexit_state_save.set_vmexit_r3(value); }
 
     // ---------------------- x64_gr_state_save seam ---------------------------
     uint64_t get_rax() noexcept
@@ -121,6 +155,7 @@ public:
     { return m_x64_gr_state_save.set_rsp(value); }
 
 private:
+    vmexit_state_save &m_vmexit_state_save;
     x64_gr_state_save &m_x64_gr_state_save;
 };
 

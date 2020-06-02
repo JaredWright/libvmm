@@ -21,4 +21,10 @@ bsl::errc_type run(vcpu_context &vc) noexcept
     return 0;
 }
 
+bsl::errc_type halt(vcpu_context &vc) noexcept
+{
+    // TODO: Implement Me!
+    return 0;
+}
+
 }

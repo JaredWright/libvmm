@@ -27,6 +27,11 @@ bsl::errc_type unload(vcpu_context &vc) noexcept;
 ///     code is returned
 bsl::errc_type run(vcpu_context &vc) noexcept;
 
+/// @brief TODO
+///
+/// @return TODO
+bsl::errc_type halt(vcpu_context &vc) noexcept;
+
 }
 
 #endif
